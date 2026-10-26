@@ -1,123 +1,189 @@
 /**
  * Landing.tsx
  * ============================================================================
- * DIVINIAN CONNECT — LANDING PAGE
+ * PPT-STYLE PRESENTATION DESIGN
  * ============================================================================
- *
- * The public home page. Welcomes visitors and explains what the platform is.
- * Includes a clear prototype disclaimer.
+ * Presentation-style landing page with slide carousel,
+ * bullet-point sections, and deck-like layout.
  * ============================================================================
  */
 
 import { Link } from 'react-router-dom';
-import { GraduationCap, ShieldCheck, MessageSquare, ThumbsUp } from 'lucide-react';
+import { GraduationCap, ShieldCheck, Users, MessageSquare, ThumbsUp, Bell, CheckCircle2, Mail } from 'lucide-react';
+import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
+import { SlideCarousel } from '@/components/layout/SlideCarousel';
+
+const features = [
+  {
+    icon: MessageSquare,
+    title: 'Community Feed',
+    points: [
+      'Post discussions & announcements',
+      'Comment & reply to posts',
+      'Support ideas with likes',
+      'Search & filter by category',
+    ],
+  },
+  {
+    icon: ShieldCheck,
+    title: 'Report a Problem',
+    points: [
+      'Reference numbers for tracking',
+      'Status: Open → Resolved',
+      'Urgency levels',
+      'Admin status updates',
+    ],
+  },
+  {
+    icon: ThumbsUp,
+    title: 'Suggestions & Polls',
+    points: [
+      'Submit improvement ideas',
+      'Support fellow students',
+      'Vote in campus polls',
+      'Track poll results',
+    ],
+  },
+];
+
+const steps = [
+  { number: '01', title: 'Register', description: 'Create your student account with school email' },
+  { number: '02', title: 'Post', description: 'Share concerns, suggestions, or ideas' },
+  { number: '03', title: 'Track', description: 'Watch problems get resolved' },
+];
 
 export function Landing() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <section className="relative py-20 lg:py-32 overflow-hidden">
-        {/* Decorative background circles */}
-        <div className="absolute top-0 left-0 w-full h-full -z-10">
-          <div className="absolute -top-24 -left-24 w-72 h-72 bg-navy-100 rounded-full blur-3xl opacity-50" />
-          <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-yellow-100 rounded-full blur-3xl opacity-50" />
-        </div>
+    <div className="min-h-screen flex flex-col bg-white text-gray-900">
+      {/* PPT Hero Slide Deck */}
+      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-navy-900 to-navy-800" />
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20" />
+        <div className="absolute top-0 left-0 w-full h-[1px] bg-white/20" />
+        <div className="absolute bottom-0 left-0 w-full h-[1px] bg-white/20" />
+        <div className="absolute left-0 top-0 h-full w-[1px] bg-white/20" />
+        <div className="absolute right-0 top-0 h-full w-[1px] bg-white/20" />
 
-        <div className="container-page text-center px-4">
-          <Badge variant="gold" className="mb-6 inline-flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-yellow-800" />
-            SCHOOL PROJECT PROTOTYPE
-          </Badge>
-
-          <div className="inline-block relative">
-            <div className="absolute inset-0 bg-navy-600/10 rounded-full blur-xl" />
-            <GraduationCap className="relative w-20 h-20 text-navy-600" />
+        <div className="relative z-10 w-full max-w-6xl mx-auto px-6 h-full flex flex-col justify-center">
+          {/* PPT Title Bar */}
+          <div className="flex items-center justify-between mb-12">
+            <div className="flex items-center gap-2">
+              <GraduationCap className="w-8 h-8 text-gold-400" />
+              <span className="text-sm font-semibold text-gray-300 uppercase tracking-widest">
+                Divinian Connect
+              </span>
+            </div>
+            <div className="flex gap-2">
+              <Button variant="ghost" className="text-gray-300 border-gray-600 hover:text-white hover:border-white px-4 py-2 text-sm">
+                Login
+              </Button>
+              <Button className="bg-gold-500 text-navy-900 hover:bg-gold-400 px-6 py-2 text-sm font-bold">
+                Register
+              </Button>
+            </div>
           </div>
 
-          <h1 className="mt-8 text-4xl md:text-6xl font-bold text-balance text-gray-900 tracking-tight">
-            Your Voice.<br />
-            Your Campus.<br />
-            Your Community.
-          </h1>
+          <SlideCarousel />
+        </div>
+      </section>
 
-          <p className="mt-6 text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
-            A student community platform for Divine Word College of San Jose.
-            Share campus concerns, submit suggestions, join discussions, vote in
-            polls, and stay updated with announcements — all in one place.
+      {/* PPT Section: Features */}
+      <section className="py-20 bg-white border-y border-gray-200">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <span className="text-navy-600 font-semibold text-sm tracking-widest uppercase">Features</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-4">Everything Divinians Need</h2>
+            <div className="w-20 h-1 bg-gold-500 mx-auto mt-4" />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {features.map((feature, i) => (
+              <div key={i} className="p-8 rounded-2xl border border-gray-200 bg-gray-50 hover:shadow-xl transition-all group">
+                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-6 ${feature.icon === MessageSquare ? 'bg-blue-100 text-blue-600' : feature.icon === ShieldCheck ? 'bg-amber-100 text-amber-600' : 'bg-green-100 text-green-600'}`}>
+                  <feature.icon className="w-6 h-6" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">{feature.title}</h3>
+                <ul className="space-y-3 text-gray-600 text-sm leading-relaxed">
+                  {feature.points.map((point, j) => (
+                    <li key={j} className="flex items-start gap-3">
+                      <span className="text-gold-500 font-bold mt-0.5">▹</span>
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* PPT Section: How It Works */}
+      <section className="py-20 bg-navy-900 text-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <span className="text-gold-400 font-semibold text-sm tracking-widest uppercase">How It Works</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mt-4">Three Simple Steps</h2>
+            <div className="w-20 h-1 bg-gold-500 mx-auto mt-4" />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {steps.map((step, i) => (
+              <div key={i} className="text-center p-6">
+                <div className="w-12 h-12 rounded-full bg-gold-500 flex items-center justify-center mx-auto mb-6 text-navy-900 font-bold text-lg">
+                  {step.number}
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">{step.title}</h3>
+                <p className="text-gray-400 text-sm leading-relaxed">{step.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* PPT Section: CTA */}
+      <section className="py-20 bg-white border-t border-gray-200">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Ready to Be Heard?</h2>
+          <p className="text-gray-600 text-lg mb-10">
+            Join hundreds of Divinians improving campus life together.
           </p>
-
-          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              to="/register"
-              className="px-8 py-3.5 text-lg font-semibold rounded-xl bg-navy-600 text-white hover:bg-navy-700 shadow-soft transition-colors"
-            >
-              Get Started — Register
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link to="/register">
+              <Button className="px-8 py-3 text-lg font-bold bg-navy-600 text-white hover:bg-navy-700 shadow-lg">
+                Get Started — Register
+              </Button>
             </Link>
-            <Link
-              to="/login"
-              className="px-8 py-3.5 text-lg font-semibold rounded-xl border border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors"
-            >
+            <Link to="/login" className="text-navy-600 font-medium hover:underline text-sm">
               Already have an account? Login
             </Link>
           </div>
-
-          {/* Feature highlights */}
-          <div className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-6">
-            <FeatureCard
-              icon={MessageSquare}
-              title="Community Feed"
-              description="Post discussions, comment, and support fellow Divinians."
-            />
-            <FeatureCard
-              icon={ShieldCheck}
-              title="Report a Problem"
-              description="Report campus issues and track their status until resolved."
-            />
-            <FeatureCard
-              icon={ThumbsUp}
-              title="Suggestions & Polls"
-              description="Submit improvement ideas and vote on campus decisions."
-            />
-          </div>
         </div>
       </section>
 
-      <section className="py-20 border-t border-gray-200 bg-gray-50">
-        <div className="container-page">
-          <h2 className="text-2xl font-bold text-gray-900 text-center mb-12">
-            How it works
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <StepCard number="1" title="Create an account" description="Register with your school email and set up your student profile." />
-            <StepCard number="2" title="Join the conversation" description="Post a concern, share a suggestion, or comment on a fellow student's post." />
-            <StepCard number="3" title="See change happen" description="Track problem statuses, vote in polls, and receive notifications." />
+      {/* Footer */}
+      <footer className="border-t border-gray-200 bg-navy-900 text-navy-300 py-8">
+        <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
+          <div className="flex items-center gap-2">
+            <GraduationCap className="w-5 h-5 text-gold-400" />
+            <span className="font-semibold text-gray-200">Divinian Connect</span>
           </div>
+          <div className="flex gap-6">
+            <Link to="/guidelines" className="hover:text-white transition-colors">
+              Community Guidelines
+            </Link>
+            <Link to="/privacy" className="hover:text-white transition-colors">
+              Privacy Policy
+            </Link>
+            <Link to="/help" className="hover:text-white transition-colors">
+              Help & FAQ
+            </Link>
+          </div>
+          <p className="text-[10px] text-gray-500">
+            School project prototype — not official DWCSJ unless approved.
+          </p>
         </div>
-      </section>
-    </div>
-  );
-}
-
-function FeatureCard({ icon: Icon, title, description }: { icon: any; title: string; description: string }) {
-  return (
-    <div className="p-6 rounded-2xl bg-white border border-gray-200 shadow-soft">
-      <div className="w-10 h-10 rounded-xl bg-navy-50 flex items-center justify-center mb-4 text-navy-600">
-        <Icon className="w-5 h-5" />
-      </div>
-      <h3 className="text-lg font-semibold text-gray-900 mb-2">{title}</h3>
-      <p className="text-sm text-gray-600 leading-relaxed">{description}</p>
-    </div>
-  );
-}
-
-function StepCard({ number, title, description }: { number: string | number; title: string; description: string }) {
-  return (
-    <div className="p-6 rounded-2xl bg-white border border-gray-200 shadow-soft flex flex-col gap-3">
-      <div className="w-8 h-8 rounded-full bg-navy-600 text-white flex items-center justify-center text-sm font-bold">
-        {number}
-      </div>
-      <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
-      <p className="text-sm text-gray-600 leading-relaxed">{description}</p>
+      </footer>
     </div>
   );
 }
