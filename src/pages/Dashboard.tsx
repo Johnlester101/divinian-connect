@@ -4,6 +4,7 @@
  */
 
 import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 import { useData } from '@/context/DataContext';
 import { Card, CardHeader, CardContent } from '@/components/ui/Card';
@@ -35,12 +36,16 @@ export function Dashboard() {
           </p>
         </div>
         <div className="flex gap-3">
-          <button className="px-4 py-2 rounded-xl bg-navy-600 text-white text-sm font-medium hover:bg-navy-700">
-            New Post
-          </button>
-          <button className="px-4 py-2 rounded-xl bg-white border border-gray-200 text-gray-700 text-sm font-medium hover:bg-gray-50">
-            Report a Problem
-          </button>
+          <Link to="/feed">
+            <button className="px-4 py-2 rounded-xl bg-navy-600 text-white text-sm font-medium hover:bg-navy-700">
+              New Post
+            </button>
+          </Link>
+          <Link to="/problems">
+            <button className="px-4 py-2 rounded-xl bg-white border border-gray-200 text-gray-700 text-sm font-medium hover:bg-gray-50">
+              Report a Problem
+            </button>
+          </Link>
         </div>
       </div>
 
