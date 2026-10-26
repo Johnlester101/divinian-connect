@@ -4,7 +4,7 @@
  */
 
 import { Link } from 'react-router-dom';
-import { Mail, GraduationCap } from 'lucide-react';
+import { GraduationCap } from 'lucide-react';
 
 export function Footer() {
   return (
@@ -25,13 +25,6 @@ export function Footer() {
           <Link to="/help" className="hover:text-white transition-colors">
             Help & FAQ
           </Link>
-        </div>
-
-        <div className="flex items-center gap-3 text-xs text-navy-400">
-          <div className="flex items-center gap-1">
-            <Mail className="w-3 h-3" />
-            <span>support@dwcsj.edu.ph (demo)</span>
-          </div>
         </div>
 
         <p className="text-[10px] text-navy-500">
