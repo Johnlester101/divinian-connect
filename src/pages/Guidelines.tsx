@@ -3,6 +3,8 @@
  * Community Guidelines page.
  */
 
+import { Card } from '@/components/ui/Card';
+
 export function Guidelines() {
   return (
     <div className="container-page">

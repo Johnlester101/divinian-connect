@@ -628,7 +628,7 @@ export class DivinianStorage {
   updateProblemStatus(
     id: string,
     status: Problem['status'],
-    actorId: string
+    _actorId: string
   ): { problem: Problem } | { error: string } {
     const problem = this.state.problems.find((p) => p.id === id);
     if (!problem) return { error: 'Problem not found.' };
@@ -681,7 +681,6 @@ export class DivinianStorage {
     const suggestion = this.state.suggestions.find((s) => s.id === suggestionId);
     if (!suggestion) return { supported: false, count: 0 };
 
-    const key = suggestionId + ':' + userId;
     const existing = this.state.supports.find(
       (s) => s.postId === suggestionId && s.userId === userId
     );

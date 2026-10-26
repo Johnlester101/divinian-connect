@@ -15,10 +15,9 @@ import { useAuth } from '@/context/AuthContext';
 import { useData } from '@/context/DataContext';
 import { Card } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
-import { Textarea } from '@/components/ui/Textarea';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
-import { Mail, Clock2, BarChart3, CheckCircle2, User } from 'lucide-react';
+import { Mail } from 'lucide-react';
 
 export function Polls() {
   const { user } = useAuth();
@@ -172,7 +171,7 @@ export function Polls() {
               ) : (
                 <div className="space-y-3">
                   {polls.map((p) => (
-                    <PollCard key={p.id} poll={p} onVote={handleVote} currentUser={user!} />
+                    <PollCard key={p.id} poll={p} onVote={handleVote} currentUser={user!} hasVotedInPoll={hasVotedInPoll} />
                   ))}
                 </div>
               )}
@@ -188,10 +187,12 @@ function PollCard({
   poll,
   onVote,
   currentUser,
+  hasVotedInPoll,
 }: {
   poll: any;
   onVote: (pollId: string, optionId: string) => void;
   currentUser: any;
+  hasVotedInPoll: (pollId: string, userId: string) => boolean;
 }) {
   const hasVoted = hasVotedInPoll(poll.id, currentUser.id);
   const totalVotes = poll.options.reduce((sum: number, o: any) => sum + o.voteCount, 0);

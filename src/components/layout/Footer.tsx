@@ -4,7 +4,7 @@
  */
 
 import { Link } from 'react-router-dom';
-import { Mail, ShieldCheck, GraduationCap } from 'lucide-react';
+import { Mail, GraduationCap } from 'lucide-react';
 
 export function Footer() {
   return (

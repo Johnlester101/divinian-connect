@@ -3,6 +3,8 @@
  * Help & Frequently Asked Questions page.
  */
 
+import { Card } from '@/components/ui/Card';
+
 export function Help() {
   const faqs = [
     {

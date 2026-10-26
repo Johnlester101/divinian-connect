@@ -14,7 +14,8 @@
  * ============================================================================
  */
 
-import { createContext, useContext, useState, useCallback, ReactNode } from 'react';
+import type { ReactNode } from 'react';
+import { createContext, useContext, useState, useCallback } from 'react';
 import { storage, type User, type UserRole } from '@/lib/storage';
 
 interface AuthContextType {
@@ -76,7 +77,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   );
 
   const register = useCallback(
-    (input) => {
+    (input: {
+      name: string;
+      email: string;
+      password: string;
+      role?: UserRole;
+      course?: string;
+      yearLevel?: string;
+    }) => {
       const result = storage.registerUser(input);
       if ('error' in result) {
         return { success: false, error: result.error };
@@ -94,7 +102,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const updateProfile = useCallback(
-    (updates) => {
+    (updates: Partial<Pick<User, 'name' | 'course' | 'yearLevel' | 'profilePicture'>>) => {
       if (!user) return { success: false, error: 'Not logged in.' };
       const result = storage.updateProfile(user.id, updates);
       if ('error' in result) {

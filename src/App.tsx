@@ -49,14 +49,9 @@ import { Help } from '@/pages/Help';
 import { Admin } from '@/pages/Admin';
 import { useAuth } from '@/context/AuthContext';
 
+
 // Pages that will be created in later steps (placeholder stubs)
 // These prevent build errors while we build one page at a time.
-const ComingSoon = ({ title }: { title: string }) => (
-  <div className="container-page py-20 text-center">
-    <h1 className="text-2xl font-bold text-gray-900 mb-2">{title}</h1>
-    <p className="text-gray-500 mb-6">This page is under construction.</p>
-  </div>
-);
 
 // Protected route wrapper — only logged-in users can access
 function ProtectedRoute({ children }: { children: React.ReactNode }) {

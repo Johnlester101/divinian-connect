@@ -14,7 +14,7 @@ import { useAuth } from '@/context/AuthContext';
 import { useData } from '@/context/DataContext';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
-import { Bell, Clock, CheckCircle2, Mail, ThumbsUp, ShieldAlert } from 'lucide.react';
+import { Bell, Clock } from 'lucide-react';
 
 const TYPE_ICONS: Record<string, any> = {
   comment: MessageSquareIcon,
@@ -113,12 +113,15 @@ function NotificationItem({
 }) {
   const Icon = TYPE_ICONS[notification.type] || BellIcon;
   return (
-    <Card
-      className={`p-4 rounded-xl border border-gray-200 cursor-pointer transition-colors hover:bg-gray-50 ${
-        !notification.read ? 'bg-navy-50 border-navy-100' : ''
-      }`}
+    <div
       onClick={onRead}
+      className="cursor-pointer"
     >
+      <Card
+        className={`p-4 rounded-xl border border-gray-200 transition-colors hover:bg-gray-50 ${
+          !notification.read ? 'bg-navy-50 border-navy-100' : ''
+        }`}
+      >
       <div className="flex items-start gap-3">
         <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
           notification.read ? 'bg-gray-100 text-gray-500' : 'bg-navy-100 text-navy-600'
@@ -141,5 +144,6 @@ function NotificationItem({
         </div>
       </div>
     </Card>
+    </div>
   );
 }

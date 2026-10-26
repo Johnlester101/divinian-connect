@@ -13,23 +13,20 @@
  * ============================================================================
  */
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useData } from '@/context/DataContext';
 import { Card } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Textarea } from '@/components/ui/Textarea';
 import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/Badge';
 import { Avatar } from '@/components/ui/Avatar';
 import {
   Send,
   ThumbsUp,
   MessageSquare,
   Search,
-  Filter,
   Plus,
-  User,
 } from 'lucide-react';
 
 const CATEGORIES = [
@@ -50,7 +47,6 @@ export function CommunityFeed() {
     posts,
     createPost,
     toggleSupport,
-    isSupportedByUser,
     createComment,
     getCommentsForPost,
   } = useData();
@@ -225,7 +221,6 @@ function PostCard({
   setCommentText: (v: string) => void;
   getCommentsForPost: (id: string) => any[];
 }) {
-  const isSupported = /* would use isSupportedByUser */ false;
   const canEditDelete = post.authorId === currentUser.id;
 
   return (

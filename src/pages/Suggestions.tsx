@@ -18,7 +18,7 @@ import { Textarea } from '@/components/ui/Textarea';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { Avatar } from '@/components/ui/Avatar';
-import { ThumbsUp, Lightbulb, List, ChevronRight } from 'lucide-react';
+import { ThumbsUp, Lightbulb, ChevronRight } from 'lucide-react';
 
 const CATEGORIES = [
   'Facilities',
@@ -84,14 +84,14 @@ export function Suggestions() {
                   label="Title"
                   placeholder="e.g. More power outlets in classrooms"
                   value={form.title}
-                  onChange={(e) => setForm({ ...form, title: e.target.value })}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, title: e.target.value })}
                   required
                 />
                 <Textarea
                   label="Description"
                   placeholder="Explain your idea and how it would help students."
                   value={form.description}
-                  onChange={(e) => setForm({ ...form, description: e.target.value })}
+                  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setForm({ ...form, description: e.target.value })}
                   rows={4}
                   required
                 />
@@ -99,7 +99,7 @@ export function Suggestions() {
                   <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
                   <select
                     value={form.category}
-                    onChange={(e) => setForm({ ...form, category: e.target.value as any })}
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setForm({ ...form, category: e.target.value as any })}
                     className="w-full px-3 py-2.5 text-sm text-gray-900 bg-white border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-navy-500"
                   >
                     {CATEGORIES.map((cat) => (
@@ -112,7 +112,7 @@ export function Suggestions() {
                     type="checkbox"
                     id="anon-sugg"
                     checked={form.isAnonymous}
-                    onChange={(e) => setForm({ ...form, isAnonymous: e.target.checked })}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, isAnonymous: e.target.checked })}
                     className="w-4 h-4 text-navy-600 border-gray-300 rounded focus:ring-navy-500"
                   />
                   <label htmlFor="anon-sugg" className="text-sm text-gray-700">
@@ -151,7 +151,7 @@ export function Suggestions() {
         <h2 className="text-lg font-semibold text-gray-900 mb-4">All Suggestions</h2>
         <div className="space-y-3">
           {suggestions.map((s) => (
-            <SuggestionRow key={s.id} suggestion={s} currentUser={user!} />
+            <SuggestionRow key={s.id} suggestion={s} currentUser={user!} toggleSuggestionSupport={toggleSuggestionSupport} />
           ))}
         </div>
       </div>
@@ -184,9 +184,11 @@ function SuggestionCard({ suggestion }: { suggestion: any }) {
 function SuggestionRow({
   suggestion,
   currentUser,
+  toggleSuggestionSupport,
 }: {
   suggestion: any;
   currentUser: any;
+  toggleSuggestionSupport: (suggestionId: string, userId: string) => { supported: boolean; count: number };
 }) {
   const [supported, setSupported] = useState(false);
 

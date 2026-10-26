@@ -10,8 +10,7 @@
  */
 
 import { Link } from 'react-router-dom';
-import { GraduationCap, ShieldCheck, Users, MessageSquare, ThumbsUp, Bell } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
+import { GraduationCap, ShieldCheck, MessageSquare, ThumbsUp } from 'lucide-react';
 import { Badge } from '@/components/ui/Badge';
 
 export function Landing() {
@@ -111,7 +110,7 @@ function FeatureCard({ icon: Icon, title, description }: { icon: any; title: str
   );
 }
 
-function StepCard({ number, title, description }: { number: number; title: string; description: string }) {
+function StepCard({ number, title, description }: { number: string | number; title: string; description: string }) {
   return (
     <div className="p-6 rounded-2xl bg-white border border-gray-200 shadow-soft flex flex-col gap-3">
       <div className="w-8 h-8 rounded-full bg-navy-600 text-white flex items-center justify-center text-sm font-bold">

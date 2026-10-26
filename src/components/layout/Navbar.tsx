@@ -11,7 +11,7 @@
  * ============================================================================
  */
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   Menu,
@@ -48,7 +48,7 @@ const adminItems = [
 ];
 
 export function Navbar() {
-  const { user, logout, isAdmin, isStudent, loading } = useAuth();
+  const { user, logout, isAdmin, loading } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);

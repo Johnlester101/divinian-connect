@@ -12,13 +12,8 @@
  * ============================================================================
  */
 
-import {
-  createContext,
-  useContext,
-  useState,
-  useCallback,
-  ReactNode,
-} from 'react';
+import type { ReactNode } from 'react';
+import { createContext, useContext, useState, useCallback } from 'react';
 import {
   storage,
   type User,
@@ -48,7 +43,6 @@ interface DataContextType {
 
   // Posts
   createPost: (input: Omit<Post, 'id' | 'createdAt' | 'supportCount'>) => Post;
-  deletePost: (id: string) => boolean;
   getPostById: (id: string) => Post | undefined;
 
   // Comments
@@ -72,7 +66,7 @@ interface DataContextType {
   createAnnouncement: (input: Omit<Announcement, 'id' | 'createdAt' | 'published'>) => Announcement;
 
   // Polls
-  createPoll: (input: Omit<Poll, 'id' | 'options' | 'createdAt'>) => Poll;
+  createPoll: (input: { question: string; options: string[]; createdBy: string; createdByName: string; expiresAt: string }) => Poll;
   votePoll: (pollId: string, optionId: string, userId: string) => { success: boolean; error?: string };
   hasVotedInPoll: (pollId: string, userId: string) => boolean;
 
@@ -117,19 +111,12 @@ export function DataProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const createPost = useCallback(
-    (input) => {
+    (input: Omit<Post, 'id' | 'createdAt' | 'supportCount'>) => {
       const post = storage.createPost(input);
       refresh();
       return post;
     },
     [refresh]
-  );
-
-  const deletePost = useCallback(
-    (id: string, userId: string, isAdmin: boolean) => {
-      return storage.deletePost(id, userId, isAdmin);
-    },
-    []
   );
 
   const getPostById = useCallback((id: string) => storage.getPostById(id), []);
@@ -140,7 +127,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
   );
 
   const createComment = useCallback(
-    (input) => {
+    (input: Omit<Comment, 'id' | 'createdAt'>) => {
       const comment = storage.createComment(input);
       // notify post author
       const post = storage.getPostById(input.postId);
@@ -180,7 +167,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
   );
 
   const createProblem = useCallback(
-    (input) => {
+    (input: Omit<Problem, 'id' | 'referenceNumber' | 'createdAt' | 'updatedAt' | 'status'>) => {
       const problem = storage.createProblem(input);
       refresh();
       return problem;
@@ -210,7 +197,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
   );
 
   const createSuggestion = useCallback(
-    (input) => {
+    (input: Omit<Suggestion, 'id' | 'supportCount' | 'status' | 'createdAt'>) => {
       const suggestion = storage.createSuggestion(input);
       refresh();
       return suggestion;
@@ -228,7 +215,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
   );
 
   const createAnnouncement = useCallback(
-    (input) => {
+    (input: Omit<Announcement, 'id' | 'createdAt' | 'published'>) => {
       const announcement = storage.createAnnouncement(input);
       refresh();
       return announcement;
@@ -237,7 +224,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
   );
 
   const createPoll = useCallback(
-    (input) => {
+    (input: { question: string; options: string[]; createdBy: string; createdByName: string; expiresAt: string }) => {
       const poll = storage.createPoll(input);
       refresh();
       return poll;
@@ -265,7 +252,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
   );
 
   const createNotification = useCallback(
-    (input) => {
+    (input: Omit<Notification, 'id' | 'read' | 'createdAt'>) => {
       const notif = storage.createNotification(input);
       setNotifications((prev) => [notif, ...prev]);
       return notif;
@@ -280,7 +267,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const unreadCount = useCallback((userId: string) => storage.unreadCount(userId), []);
 
   const createReport = useCallback(
-    (input) => {
+    (input: Omit<ContentReport, 'id' | 'status' | 'createdAt'>) => {
       const report = storage.createReport(input);
       refresh();
       return report;
@@ -318,7 +305,6 @@ export function DataProvider({ children }: { children: ReactNode }) {
     stats,
     users,
     createPost,
-    deletePost: () => false, // implemented in pages that need auth context
     getPostById,
     getCommentsForPost,
     createComment,

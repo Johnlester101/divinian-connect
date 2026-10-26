@@ -3,6 +3,8 @@
  * Privacy Policy page.
  */
 
+import { Card } from '@/components/ui/Card';
+
 export function Privacy() {
   return (
     <div className="container-page">

@@ -13,14 +13,12 @@ import {
   MessageSquare,
   ShieldAlert,
   ThumbsUp,
-  Bell,
-  Clock,
   CheckCircle2,
 } from 'lucide-react';
 
 export function Dashboard() {
   const { user } = useAuth();
-  const { posts, problems, suggestions, announcements, stats } = useData();
+  const { posts, problems, stats } = useData();
   const [recentPosts, setRecentPosts] = useState(posts);
 
   useEffect(() => {

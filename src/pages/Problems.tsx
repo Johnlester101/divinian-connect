@@ -18,7 +18,7 @@ import { Input } from '@/components/ui/Input';
 import { Textarea } from '@/components/ui/Textarea';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
-import { ShieldAlert, List, Clock2, User, ChevronRight } from 'lucide-react';
+import { ShieldAlert, ChevronRight } from 'lucide-react';
 
 const CATEGORIES = [
   'Classroom Facilities & Equipment',
@@ -38,20 +38,12 @@ const URGENCIES = [
   { value: 'urgent', label: 'Urgent' },
 ];
 
-const STATUS_COLORS: Record<string, string> = {
-  Open: 'bg-amber-50 text-amber-700 border-amber-100',
-  'Under Review': 'bg-blue-50 text-blue-700 border-blue-100',
-  'In Progress': 'bg-indigo-50 text-indigo-700 border-indigo-100',
-  Resolved: 'bg-green-50 text-green-700 border-green-100',
-};
-
 export function Problems() {
   const { user, isAdmin, isModerator } = useAuth();
   const {
     problems,
     createProblem,
     updateProblemStatus,
-    getProblemById,
   } = useData();
 
   const [form, setForm] = useState({
@@ -140,7 +132,7 @@ export function Problems() {
                     <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
                     <select
                       value={form.category}
-                      onChange={(e) => setForm({ ...form, category: e.target.value as any })}
+                      onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setForm({ ...form, category: e.target.value as any })}
                       className="w-full px-3 py-2.5 text-sm text-gray-900 bg-white border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-navy-500"
                     >
                       {CATEGORIES.map((cat) => (
@@ -263,7 +255,7 @@ export function Problems() {
                 <div className="mt-6">
                   <h3 className="text-sm font-medium text-gray-900 mb-3">Update Status</h3>
                   <div className="flex gap-2">
-                    {['Open', 'Under Review', 'In Progress', 'Resolved'].map((s) => (
+                    {(['Open', 'Under Review', 'In Progress', 'Resolved'] as const).map((s) => (
                       <Button
                         key={s}
                         variant="outline"
@@ -314,7 +306,7 @@ function ProblemCard({
       </div>
       {canModerate && (
         <div className="mt-3 flex gap-2">
-          {['Open', 'Under Review', 'In Progress', 'Resolved'].map((s) => (
+          {(['Open', 'Under Review', 'In Progress', 'Resolved'] as const).map((s) => (
             <button
               key={s}
               onClick={() => onUpdateStatus(problem.id, s, 'moderator')}

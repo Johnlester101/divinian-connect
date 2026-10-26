@@ -21,9 +21,6 @@ import {
   MessageSquare,
   ShieldAlert,
   ThumbsUp,
-  BarChart3,
-  Bell,
-  Flag,
   Trash2,
   Edit,
 } from 'lucide-react';
@@ -231,7 +228,7 @@ function UserManagement({ users }: { users: any[] }) {
   );
 }
 
-function ContentModeration({ posts, problems, suggestions }: any) {
+function ContentModeration({ posts }: any) {
   return (
     <div>
       <h3 className="text-lg font-semibold text-gray-900 mb-4">All Content</h3>
